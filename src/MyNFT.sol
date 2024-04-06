@@ -5,16 +5,15 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract MyNFT is ERC721URIStorage {
-    uint256 _tokenId;
+    using Counters for Counters.Counter;
+    Counters.Counter private _tokenIds;
 
-    constructor() ERC721("MyNFT", "MN") {
-        _tokenId = 0;
-    }
+    constructor() ERC721("MyNFT", "MN") {}
 
     function createToken(address recipient, string memory tokenURI) public returns (uint256) {
-        ++_tokenId;
+        _tokenIds.increment();
         
-        uint256 newItemId = _tokenId;
+        uint256 newItemId = _tokenIds.current();
         _mint(recipient, newItemId);
         _setTokenURI(newItemId, tokenURI);
 
