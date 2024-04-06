@@ -5,7 +5,7 @@ import {Test, console} from "forge-std/Test.sol";
 import {MyNFT} from "../src/MyNFT.sol";
 
 contract MyNFTTest is Test {
-    MyNFT myNFT;
+    MyNFT public myNFT;
 
     function setUp() public {
         myNFT = new MyNFT();
