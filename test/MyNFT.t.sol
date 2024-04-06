@@ -1,24 +1,20 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.25;
 
 import {Test, console} from "forge-std/Test.sol";
-import {Counter} from "../src/Counter.sol";
+import {MyNFT} from "../src/MyNFT.sol";
 
-contract CounterTest is Test {
-    Counter public counter;
+contract MyNFTTest is Test {
+    MyNFT myNFT;
 
     function setUp() public {
-        counter = new Counter();
-        counter.setNumber(0);
+        myNFT = new MyNFT();
     }
 
-    function test_Increment() public {
-        counter.increment();
-        assertEq(counter.number(), 1);
-    }
-
-    function testFuzz_SetNumber(uint256 x) public {
-        counter.setNumber(x);
-        assertEq(counter.number(), x);
+    function testCreateToken() public {
+        string memory tokenURI = "ipfs://bafybeib6ayylbtsu3te7kam4kjsb6foizhbuez5leffgyeoxuaxaxcp5ni/DALL%C2%B7E%20Recruitment%20Image.webp";
+        uint256 newItemId = myNFT.createToken(tokenURI);
+        assertEq(myNFT.ownerOf(newItemId), address(this));
+        assertEq(myNFT.tokenURI(newItemId), tokenURI);
     }
 }
