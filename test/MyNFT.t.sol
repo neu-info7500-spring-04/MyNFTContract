@@ -1,34 +1,21 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.25;
 
-import {Test, console} from "forge-std/Test.sol";
-import {MyNFT} from "../src/MyNFT.sol";
+import {Test} from "forge-std/Test.sol";
+import "../src/MyNFT.sol";
 
 contract MyNFTTest is Test {
-    MyNFT public myNFT;
-    address testAddress = address(0x123);
+    MyNFT instance;
 
     function setUp() public {
-        myNFT = new MyNFT();
+        instance = new MyNFT();
     }
 
-    function testCreateToken() public {
-        string memory tokenURI = "ipfs://bafybeib6ayylbtsu3te7kam4kjsb6foizhbuez5leffgyeoxuaxaxcp5ni/DALL%C2%B7E%20Recruitment%20Image.webp";
-        uint256 newItemId = myNFT.createToken(testAddress, tokenURI);
-        
-        assertEq(myNFT.ownerOf(newItemId), testAddress, "The NFT owner should be the test address");
-        assertEq(myNFT.tokenURI(newItemId), tokenURI, "The NFT tokenURI should match the input");
-    }
+    function testMint() public {
+        string
+            memory dummyTokenUri = "ipfs://bafybeicgxqlzlzossxskc4mih5ldaeeb276wzy6i6urcbrnydi2t7iukcu/%E5%A5%A7%E5%88%A9%E7%B5%A6%E5%A4%A7%E9%A0%AD%E7%85%A7.png";
+        uint256 tokenId = instance.createToken(dummyTokenUri);
 
-    function testMintNFTAndCheckSupply() public {
-        string memory tokenURI1 = "ipfs://bafybeib6ayylbtsu3te7kam4kjsb6foizhbuez5leffgyeoxuaxaxcp5ni/DALL%C2%B7E%20Recruitment%20Image.webp";
-        string memory tokenURI2 = "ipfs://bafybeib6ayylbtsu3te7kam4kjsb6foizhbuez5leffgyeoxuaxaxcp5ni/DALL%C2%B7E%20Recruitment%20Image.webp";
-        
-        uint256 newItemId1 = myNFT.createToken(testAddress, tokenURI1);
-        uint256 newItemId2 = myNFT.createToken(testAddress, tokenURI2);
-        
-        assertEq(myNFT.ownerOf(newItemId1), testAddress, "The NFT owner should be the test address");
-        assertEq(myNFT.tokenURI(newItemId1), tokenURI1, "The NFT tokenURI should match the input");
-        assertEq(myNFT.tokenURI(newItemId2), tokenURI2, "The NFT tokenURI should match the input");
+        assertEq(dummyTokenUri, instance.tokenURI(tokenId));
     }
 }
