@@ -15,7 +15,7 @@ contract MyNFT is ERC721URIStorage {
     // 新增：ERC20支付代幣的地址
     IERC20 public paymentToken;
 
-    constructor(address _paymentTokenAddress) ERC721("MyNFT", "MN") {
+    constructor(address _payhmentTokenAddress) ERC721("MyNFT", "MN") {
         paymentToken = IERC20(_paymentTokenAddress);
     }
 
